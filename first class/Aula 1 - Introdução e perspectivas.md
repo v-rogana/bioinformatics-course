@@ -26,7 +26,7 @@
 
 - Entendimento abstrato de que a maioria das tarefas em bioinformática pode ser resumida em quatro etapas principais:
     1. **Extração e Tratamento de Dados**: Coleta e preparação de dados para análise.
-    2. **Algoritmos em Linha de Comando**: Uso de ferramentas de linha de comando para aplicar algoritmos bioinformáticos.
+    2. **Algoritmos em Linha de Comando**: Uso de ferramentas de linha de comando para aplicar algoritmos de bioinformática.
     3. **Comandos e Scripts no Linux**: Manipulação de dados e automação de tarefas usando o sistema operacional Linux.
     4. **Ciência de Dados em R/Python**: Análise e visualização de dados biológicos usando as linguagens de programação R e Python.
 
