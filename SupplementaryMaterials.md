@@ -2,7 +2,7 @@
 
 Para mim, o ensino não é uma ferramenta passiva; meramente ouvir sem propósito não é suficiente. O verdadeiro aprendizado ocorre quando absorvemos uma ideia, a processamos internamente e, em seguida, aplicamos, testamos e exploramos esse conhecimento com nossas próprias mãos. É por isso que estou fornecendo links externos para vocês - para que possam se envolver ativamente e brincar com os temas que abordarei durante as aulas, junto com o passo-a-passo pratico e uma boa conversa com o chat-gpt :)
 
-### Links de Ferramentas/Softwares importantes
+### Links de Ferramentas/Softwares que serão usados
 
 Aula 1:
 
@@ -14,9 +14,15 @@ Aula 2:
 - Conda - O Conda é um sistema de gerenciamento de pacotes e ambientes que além de resolver problemas de versionamento, facilita muito a vida com instalação de programas.
 - AWS - ainda preciso achar um conteúdo bom e básico de AWS.
 
+Links de ferramentas usadas na aula prática:
+- [NCBI browser](https://youtu.be/Lvi48eEQdHE?si=xewLIdjesZCfIJNK) 
+- [Entrez no Python](https://youtu.be/XiWcXUS15fI?si=qcCNStmSlIsthRHo)
+- [SRAtoolkit](https://youtu.be/goXvL9fW-1Q?si=DsGzg_2VdxYWYEiv) | [SRAtoolkit - part 2](https://youtu.be/Poh1gzcR2tQ?si=_HiY0CEUeY8hqOmy)
+- [Artigo sobre como operar buscas na base de dados do nucleotide](https://browse.welch.jhmi.edu/finding-sequence-using-nucleotide/search-example)
+
 Aula 3: 
 
-- [Github basics](https://www.youtube.com/watch?v=tRZGeaHPoaw) - Esse vídeo de 1h + conversas na pratica com o chatgpt usando git/github vai ser o suficiente para utilizar a ferramenta, como sempre não tenha medo de testar, tenha um projeto prático va usando o git e suas ferramentas como git clone, commit, etc.
+- [Github basics](https://www.youtube.com/watch?v=tRZGeaHPoaw) - Esse vídeo de 1h + conversas na pratica com o chatgpt usando git/github vai ser o suficiente para utilizar a ferramenta, como sempre não tenha medo de testar, tenha um projeto prático va usando o git e suas ferramentas como git clone, commit, branch, merge, etc.
 
 ### Links de práticas com o chatgpt
 
