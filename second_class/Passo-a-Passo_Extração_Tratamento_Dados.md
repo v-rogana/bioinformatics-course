@@ -10,7 +10,7 @@ Este guia fornece instruções detalhadas sobre como configurar um ambiente Cond
 2. **Busca de Sequências**: Utilização de um script Python para extrair sequências de DNA a partir da base de dados do NCBI, usando a API do Entrez.
 3. **Preparação de Dados de Sequenciamento**: Download e limpeza de dados do Sequence Read Archive (SRA), seguido de processos para melhorar a qualidade e usabilidade dos dados para análises futuras.
 
-### **1. Instalação do Miniconda**
+### 1. Instalação do Miniconda
 
 O Miniconda é uma versão mais enxuta do Anaconda que inclui o gerenciador de pacotes Conda e Python, facilitando a instalação rápida e exigindo menos recursos do sistema.
 

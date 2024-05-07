@@ -8,12 +8,12 @@
 
 ## Aulas Teóricas
 
-- [Introdução e Perspectivas](https://github.com/v-rogana/bioinformatics-course/blob/main/first%20class/Aula%201%20-%20Introduc%CC%A7a%CC%83o%20e%20perspectivas.md)
-- 
+- [Introdução e Perspectivas](/first%20class/Aula%201%20-%20Introdução%20e%20perspectivas.md)
+- [Visão Geral Projeto Prático - Detecção e Quantificação de Carga de Wolbachia em Bibliotecas de small RNAs](/first%20class/Visão_Geral_Projeto_Prático.md)
+- []
 
 ## Aulas Práticas
 
-- [Projeto de Análise de ]
-- [Extração e Tratamento dos dados](https://github.com/v-rogana/bioinformatics-course/blob/main/second%20class/Aula%20Prática%201.md)
+- [Extração e Tratamento dos dados](/second_class/Passo-a-Passo_Extração_Tratamento_Dados.md)
 - [Algoritmos em Bioinformatica e Automatização de Processos]
-- [Ciência de Dados - Gerar Plots com Python/R]
+- [Ciência de Dados - Gerando Plots com Python/R]
