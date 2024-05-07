@@ -85,19 +85,22 @@ Utilizaremos uma variedade de ferramentas e plataformas para garantir
 que cada participante ganhe experiência prática e compreensão teórica
 dos processos biológicos e computacionais.
 
-Ferramentas e Softwares que Utilizaremos: Conda: Utilizaremos o Conda
-para criar ambientes isolados que facilitam o gerenciamento de pacotes e
-dependências necessárias para nossos projetos. Algoritmos e Linhas de
-Comando: Aprenderemos a executar algoritmos bioinformáticos essenciais
-através de linhas de comando, uma habilidade crucial para a análise de
-dados genéticos. Scripts e Automatização: Desenvolveremos scripts para
-automatizar processos repetitivos, aumentando a eficiência e a
-capacidade de replicar análises com precisão. Notion: Utilizaremos o
-Notion para organizar tarefas e manter a documentação do curso
-atualizada, o que facilita o acompanhamento do progresso e a revisão dos
-conteúdos. Git/GitHub: Empregaremos Git e GitHub para colaboração em
-projetos. Isso não só facilita o trabalho em equipe como também mantém
-um histórico detalhado de todas as alterações e versões anteriores de
-nossos projetos. AWS: Introduziremos conceitos básicos de computação na
-nuvem usando a AWS, incluindo o uso de servidores, alocação de recursos
-computacionais (vCPUs e memória RAM) e opções de armazenamento.
+### Ferramentas e Habilidades que Serão Exploradas
+
+- **Conda**:
+  - Utilizaremos o Conda para criar ambientes isolados, facilitando o gerenciamento de pacotes e dependências necessárias para nossos projetos.
+
+- **Algoritmos e Linhas de Comando**:
+  - Aprenderemos a executar algoritmos bioinformáticos essenciais através de linhas de comando, uma habilidade crucial para a análise de dados genéticos.
+
+- **Scripts e Automatização**:
+  - Desenvolveremos scripts para automatizar processos repetitivos, aumentando a eficiência e a capacidade de replicar análises com precisão.
+
+- **Notion**:
+  - Utilizaremos o Notion para organizar tarefas e manter a documentação do curso atualizada, o que facilita o acompanhamento do progresso e a revisão dos conteúdos.
+
+- **Git/GitHub**:
+  - Empregaremos Git e GitHub para colaboração em projetos. Isso não só facilita o trabalho em equipe como também mantém um histórico detalhado de todas as alterações e versões anteriores de nossos projetos.
+
+- **AWS**:
+  - Introduziremos conceitos básicos de computação na nuvem usando a AWS, incluindo o uso de servidores, alocação de recursos computacionais (vCPUs e memória RAM) e opções de armazenamento.
