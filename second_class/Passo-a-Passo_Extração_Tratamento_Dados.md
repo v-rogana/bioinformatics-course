@@ -1,8 +1,8 @@
-# Guia Passo-a-Passo para Extração e Análise de Sequências
+# Guia Passo-a-Passo para Extração e Tratamento de Dados
 
 ### Atividade prática aula 2
 
-Este guia fornece instruções detalhadas sobre como configurar um ambiente Conda adequado para bioinformática, executar scripts Python para buscar sequências de DNA a partir de números de acesso, e processar dados de sequenciamento de RNA, a partir do banco de dados do SRA. O foco é equipar os usuários com as ferramentas necessárias para executar análises bioinformáticas eficientes, desde a configuração inicial do ambiente até as etapas finais de extração e tratamento dos dados.
+Este guia fornece instruções detalhadas sobre como configurar um ambiente Conda adequado para bioinformática, executar scripts Python para buscar sequências de DNA a partir de números de acesso, e processar dados de sequenciamento de RNA, a partir do banco de dados do SRA. O foco é aprender a usar as ferramentas necessárias para executar, desde a configuração inicial do ambiente até as etapas finais de extração e tratamento dos dados de sequência.
 
 ### **Visão Geral das Atividades**
 
@@ -13,10 +13,6 @@ Este guia fornece instruções detalhadas sobre como configurar um ambiente Cond
 ### **1. Instalação do Miniconda**
 
 O Miniconda é uma versão mais enxuta do Anaconda que inclui o gerenciador de pacotes Conda e Python, facilitando a instalação rápida e exigindo menos recursos do sistema.
-
-**Criação e instalação**: Criação de um diretório específico e instalação do Miniconda.
-
-**Inicialização do ambiente**: Configuração do shell para integrar o Conda, permitindo o gerenciamento eficiente de ambientes e pacotes.
 
 - Crie um diretório para instalar o Miniconda:
 
@@ -120,10 +116,6 @@ grep “>” sequences.fasta
 ### 4. Análise Adicional e Limpeza
 
 Esta seção aborda o download e a preparação inicial dos dados de sequenciamento, essencial para garantir a qualidade e a precisão das análises subsequentes.
-
-**Download dos Dados**: Utilização de ferramentas como **`fasterq-dump`** para extrair dados.
-
-**Limpeza e Formatação**: Uso de **`trim-galore`** e outras ferramentas para limpar e formatar os dados para análises futuras.
 
 - Baixe e processe os dados de sequenciamento com `fasterq-dump` e `trim-galore`:
     - Use o comando `fasterq-dump` na biblioteca para extrair o dado do SRA
