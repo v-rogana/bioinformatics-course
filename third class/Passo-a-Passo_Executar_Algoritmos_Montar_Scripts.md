@@ -78,4 +78,5 @@ Faça um for-loop que itera sobre todos os arquivos que terminam com **`onlymapp
     - ref é a referencia usada de wolbachia.
     - library é de onde veio a contagem em relação as bibliotecas de pequenos RNAs.
 
-**Dica: Antes de trabalhar com um arquivo (no caso o .sam), dedique um momento para entender seu conteúdo e estrutura. Isso facilitará a manipulação e a análise dos dados de forma mais eficiente e segura.**
+[!IMPORTANT]
+**Antes de trabalhar com um arquivo (no caso o .sam), dedique um momento para entender seu conteúdo e estrutura. Isso facilitará a manipulação e a análise dos dados de forma mais eficiente e segura.**
