@@ -79,4 +79,4 @@ Faça um for-loop que itera sobre todos os arquivos que terminam com **`onlymapp
     - library é de onde veio a contagem em relação as bibliotecas de pequenos RNAs.
 
 [!IMPORTANT]
-**Antes de trabalhar com um arquivo (no caso o .sam), dedique um momento para entender seu conteúdo e estrutura. Isso facilitará a manipulação e a análise dos dados de forma mais eficiente e segura.**
+Antes de trabalhar com um arquivo (no caso o .sam), dedique um momento para entender seu conteúdo e estrutura. Isso facilitará a manipulação e a análise dos dados de forma mais eficiente e segura.
