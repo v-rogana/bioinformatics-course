@@ -1,6 +1,6 @@
 # Algoritmos de Alinhamento de Sequências
 
-### Algoritmo Needleman-Wunch (Alinhamento Global de Sequências)
+### **Algoritmo Needleman-Wunch (Alinhamento Global de Sequências)**
 
 - Input → Algoritmo → Output
 - Algoritmos Exatos X Algoritmos Heurísticos.
@@ -34,14 +34,14 @@ Substituições que mantêm o mesmo número de pontes de hidrogênio são chamad
 - **2** é a penalidade mais severa para transversões que representam uma mudança mais drástica na configuração das pontes de hidrogênio (A↔T, C↔G).
 - O fluxo informacional biológico é capturado em modelos computacionais/matemáticos para fornecer um modelo probabilístico da realidade (never take a model to serious - Sapolsky).
 
-### Aplicando o Princípio da Navalha de Occam em Algoritmos
+### **Aplicando o Princípio da Navalha de Occam em Algoritmos**
 
 - **Definição:** Princípio da parcimônia ou simplicidade.
 - **Hipótese 1:** Um homem com traje vermelho e barba branca, conhecido como Papai Noel, decola do Polo Norte em um trenó voador puxado por renas. Ele voa globalmente, entra na sua casa pela chaminé (que sua casa não tem), e deixa presentes apenas por você ser uma criança bem-comportada, tudo em uma única noite.
 - **Hipótese 2:** Seu pai, acorda cedo e compra uma pista de Hot Wheels na loja, embrulha-a em papel colorido e a coloca sob a falso pinheiro de plástico antes de você acordar.
 - **Aplicação da Navalha de Occam:** A hipótese 2 é preferida por ser a mais simples.
 
-**Aplicação em Algoritmos - O Caso do Algoritmo de Needleman-Wunsch**
+### **Aplicação em Algoritmos - O Caso do Algoritmo de Needleman-Wunsch**
 
 - **Hipótese 1:** Remoção completa e posterior inserção de todos os nucleotídeos.
 - **Hipótese 2:** Caminho de menor custo na matriz, minimizando alterações.
@@ -51,7 +51,7 @@ Substituições que mantêm o mesmo número de pontes de hidrogênio são chamad
 
 Começar do zero permite que o algoritmo "ignore" partes das sequências que não contribuem para um alinhamento significativo. Isso significa que o algoritmo não é penalizado por regiões de baixa similaridade ao início ou ao final das sequências, focando-se apenas nas partes que realmente mostram correspondências significativas. Dessa forma, cada parte da matriz de pontuação pode desenvolver um alinhamento local independentemente, sem ser influenciado por pontuações negativas ou baixas de outras regiões.
 
-### Passos Algoritmo Smith–Waterman  
+### **Passos Algoritmo Smith–Waterman**  
 ![Passo 1](/images/Smith-Waterman-Algorithm-Example-Step1.png)
 ![Passo 2](/images/Smith-Waterman-Algorithm-Example-Step2.png)
 ![Passo 3](/images/Smith-Waterman-Algorithm-Example-Step3.png)
