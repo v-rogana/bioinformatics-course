@@ -1,38 +1,56 @@
 # Ciência e Visualização de Dados (Prática)
 
-Complete a tabela de metadados que sera utilizada para fazer sentido dos nossos dados
-
-| library | total_reads | library_treatment | collection_date |
-| --- | --- | --- | --- |
-| SRR12893565 | 12698221 |  |  |
-| SRR12893566 | 15539404 |  |  |
-| SRR12893567 | 11859587 |  |  |
-| SRR12893571 | 14962000 |  |  |
-| SRR12893572 | 14454900 |  |  |
-| SRR12893573 | 10499400 |  |  |
-| SRR12893575 | 16493955 |  |  |
-
+Baixe os arquivos xlsx na pasta da quarta aula que vão servir de metadados para fazer sentido do seu dataset na hora de plotar no R.
 ### **1. Carregamento dos Dados**
 
 - Carregue a tabela de contagens, as informações da biblioteca e os títulos das cepas:
     - `counts`: Carregue os dados que contêm as leituras por *Wolbachia* para cada biblioteca e cepa.
-    - `Aegypti_controle_metadados`: Carregue os dados que incluem as leituras trimadas, o tipo de tratamento da biblioteca e o título associado a cada cepa de *Wolbachia*.
+    - `Library_metadados`: Carregue os dados que incluem as leituras trimadas, o tipo de tratamento da biblioteca e o título associado a cada cepa de *Wolbachia*.
+    - `Wolbs_title`: Carregue os dados que incluem os nomes das cepas associados ao código de identificação.
+
+```bash
+# Carregando os dados
+library(readxl)
+counts = read.csv("caminho_no_seu_computador/readcounts.csv", header=FALSE) # (lib/strain/count)
+metadados_wolb = read_xlsx("caminho_no_seu_computador/metadados_wolb.xlsx") # informações da biblioteca (reads trimadas [essa info esta no log #reads processed] + tipo de tratamento)
+wolbs_title = read_xlsx("caminho_no_seu_computador/wolbs_title.xlsx")# titulo associado a cepa [essa info esta no fasta de sequencia]
+```
 
 ### **2. Preparação dos Dados**
 
-- **Adicionar informações sobre biblioteca na tabela com `left_join`**
-- Use `left_join` para combinar `counts` com `Aegypti_controle_metadados`
+- Carregue o pacote `dplyr` .
+- Adicionar metadados sobre Livraria na tabela com **`left_join`** para combinar `counts` com `Library_metadados`
+    - Use a coluna da Livraria para concatenar as duas, entenda a estrutura do **`left_join`**
+- Adicionar os nomes das cepas com o **`left_join`** para combinar `counts` com `wolbs_title`
+    - Use a coluna de identificação da cepa/accession_version (ex: CP031221.1)
 - **Cálculo de RPM**:
-    - Calcule o RPM dividindo a contagem de alinhamento pelo total de leituras trimadas e multiplique por 1.000.000. Adicione esta nova coluna `rpm` ao dataframe `counts`.
+    - Calcule o RPM dividindo a contagem de alinhamento pelo total de leituras trimadas e multiplique por 1e6 a quantidade de leituras trimadas. Adicione esta nova coluna `rpm` ao dataframe `counts`.
 
-### **3. Preparação de Dados para Heatmap**
+### **3. Transformação dos Dados para Matriz**:
 
-- **Transformação dos Dados para Matriz**:
-    - Use `dcast` para transformar `counts` em uma matriz onde as linhas são combinações de biblioteca e tratamento e as colunas são as cepas de *Wolbachia*. Use `rpm` como a variável de valor.
-    - Substitua valores NA por 0 para evitar problemas com a matriz.
-- **Finalização da Matriz**:
-    - Converta `d_counts` para uma matriz (`as.matrix`), removendo as colunas de biblioteca e tratamento, pois essas serão usadas como nomes de linhas.
-    - Defina os nomes das linhas combinando os valores de biblioteca e tratamento para formar identificadores únicos para cada linha.
+- Utilize a função `dcast` para converter o dataframe `counts` em uma matriz. As linhas devem representar combinações únicas de biblioteca e tratamento, enquanto as colunas devem representar as diferentes cepas de *Wolbachia*.
+    - Carregue o pacote `reshape2` no R.
+    - Especifique `Library` e `library_treatment` como os identificadores das linhas (`Library + library_treatment`) e `Title_reduced + accession version` como as colunas.
+    - Atribua `rpm` como a variável de valor usando `value.var="rpm"`. Isso determinará os valores dentro de cada célula da matriz, correspondendo às leituras por milhão para cada cepa nas respectivas combinações de biblioteca e tratamento.
+- Resultado final:
+
+| Library | tratamento_tetraciclina | strain1 | strain2 |
+| --- | --- | --- | --- |
+| Lib1 | Trat1 | rpm | rpm |
+| Lib2 | Trat2 | rpm | rpm |
+- Substitua todos os valores NA por 0 no dataframe transformado. Isso é crucial para evitar problemas durante análises estatísticas ou operações matemáticas que não lidam bem com NA, usando o comando `is.na`.
+
+**Finalização da Matriz**:
+
+- Transforme o dataframe `counts` em uma matriz `counts_matrix`, com o comando `as.matrix` removendo as colunas que inicialmente identificavam as bibliotecas e tratamentos (colunas 1 e 2).
+- Atribua nomes às linhas usando uma combinação dos valores de biblioteca e tratamento para criar identificadores únicos. Isso ajuda na identificação clara das linhas durante análises posteriores.
+    - `row.names(counts_matrix)=paste0(counts[, 1], "_", counts[, 2])`.
+- resultado final:
+
+| row names | strain1 | strain2 |
+| --- | --- | --- |
+| Lib1_Trat1 | rpm | rpm |
+| Lib2_Trat2 | rpm | rpm |
 
 ## Visualização de Dados (Pacote complexheatmap)
 
@@ -50,12 +68,15 @@ Complete a tabela de metadados que sera utilizada para fazer sentido dos nossos 
 - **Configuração Básica**:
     - Defina um nome para a legenda "RPM", .
     - Especifique os títulos para as linhas e para o plot, respectivamente "Libraries" e "Wolb Alignment”.
-- **Distâncias e Métodos de Agrupamento**:
-    - Escolha a distância de agrupamento para as linhas e colunas. Por exemplo, use "manhattan" para as linhas e "euclidean" para as colunas.  (escolha de métrica de distância)
-    - Escolha o método de agrupamento para as linhas e colunas. Por exemplo, "ward.D" para as linhas e "complete" para as colunas. (métodos de agrupamento)
 - **Personalização de Cores**:
     - Utilize a paleta de cores `viridis` para o mapeamento dos valores. Explique como o número de cores (ex.: 100) pode afetar a granularidade e interpretação dos dados no heatmap.
 
-### Melhore a visualização :)
+Use o exemplo como base, e aprenda o basico da estrutura do [complexheatmap](https://jokergoo.github.io/ComplexHeatmap-reference/book/introduction.html).
 
-obs: da pra fazer e ensinar testes estatisticos fazendo analise dos dias ou do tipo de biblioteca, alem de comentar sobre shiny e sobre plotly
+```bash
+Heatmap(counts_matrix,
+        name = "RPM",
+)
+```
+
+### Melhore a visualização :)
