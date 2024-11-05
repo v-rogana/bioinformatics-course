@@ -2,7 +2,7 @@
 
 Alinhamento Global
 
-![image.png](image.png)
+![global](/images/global_alignment.png)
 
 - Alinha todos os nucleotídeos da sequencia query/target.
 - Apropriado para sequencias geneticamente similares/relacionadas.
@@ -15,7 +15,7 @@ Exemplos:
 
 Alinhamento Local
 
-![image.png](image%201.png)
+![local](/images/local_alignment.png)
 
 - Alinha alguns nucleotídeos da sequencia query/target
 - Alinha regiões de maior similaridade.
@@ -51,8 +51,6 @@ Para preencher a matriz, escolha a maior pontuação entre:
 
 match = +1 / mismatch = -1 / gap = -2
 
-[Resposta](https://www.notion.so/Resposta-12f5e115016d80dca482ca97f68f3f33?pvs=21)
-
 |  |  | A | T | G | C | T |
 | --- | --- | --- | --- | --- | --- | --- |
 |  | 0 | -2 | -4 | -6 | -8 | -10 |
@@ -61,7 +59,7 @@ match = +1 / mismatch = -1 / gap = -2
 | C | -6 |  |  |  |  |  |
 | T | -8 |  |  |  |  |  |
 
-![image.png](image%202.png)
+![Matriz Needleman-Wunch](/images/movimentacao_matriz.png)
 
 ### **Matriz de Pontuação para Nucleotídeos**
 
@@ -112,8 +110,8 @@ Substituições que mantêm o mesmo número de pontes de hidrogênio são chamad
 
 Começar do zero permite que o algoritmo "ignore" partes das sequências que não contribuem para um alinhamento significativo. Isso significa que o algoritmo não é penalizado por regiões de baixa similaridade ao início ou ao final das sequências, focando-se apenas nas partes que realmente mostram correspondências significativas. Dessa forma, cada parte da matriz de pontuação pode desenvolver um alinhamento local independentemente, sem ser influenciado por pontuações negativas ou baixas de outras regiões.
 
-![image.png](image%203.png)
+![step1](/images/Smith-Waterman-Algorithm-Example-Step1.png)
 
-![image.png](image%204.png)
+![step2](/images/Smith-Waterman-Algorithm-Example-Step2.png)
 
-![image.png](image%205.png)
+![step3](/images/Smith-Waterman-Algorithm-Example-Step3.png)
