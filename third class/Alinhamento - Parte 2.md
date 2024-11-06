@@ -88,7 +88,7 @@ Agora, vamos alinhar as sequências das bibliotecas FASTA à sequência de refer
     O -p deve ser 3!
     
     ```bash
-    bowtie -p 3 [seus parâmetros] reference_index infected_SRR12893566.fasta > infected_SRR12893566.sam
+    bowtie -p 3 [seus parâmetros] reference_index infected_SRR12893566.fasta > infected_SRR12893566.sam 2> infected_SRR12893566_bowtie.log
     ```
     
     **Determinar a Parametrização Ideal**
