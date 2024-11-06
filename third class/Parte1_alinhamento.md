@@ -97,9 +97,7 @@ Sequence2          1 ATGCGTACGTAGCTAGTACGACTGACTGACTGACTAGCTGACTAGCTG--     48
 1. **Obter uma sequência de referência de Wolbachia** (por exemplo, `wolbachia_reference.fasta`).
 2. **Criar uma base de dados indexada com BLAST**:
     
-    ```bash
-    makeblastdb -in NZ_CP072672.1.fasta -dbtype nucl -out wolbachia_db
-    ```
+
     
     - **dbtype nucl** indica que a base de dados é composta de sequências de nucleotídeos.
 3. **Preparar um arquivo multifasta** com sequências pequenas que deseja alinhar localmente. Esse arquivo será o `queries.fasta`. (explicar como eu preparei)
