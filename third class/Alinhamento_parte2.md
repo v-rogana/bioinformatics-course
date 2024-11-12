@@ -4,11 +4,11 @@
 
 Este guia foca no uso do Bowtie para alinhar sequências (bibliotéca) a uma referência, utilizando ferramentas e técnicas específicas. A atividade está dividida em cinco partes principais:
 
-1. **Configuração do Ambiente**
-2. **Construção do Índice Bowtie (indexar database igual no blast)**
-3. **Alinhamento com Bowtie (alinhamento local igual no blast)**
-4. **Manipulação e Limpeza com Samtools**
-5. **Comando para Montar uma Tabela de Contagem de Alinhamento**
+1. [**Configuração do Ambiente**](#1-configuracao-do-ambiente-com-micromamba)
+2. [**Construção do Índice Bowtie**](#2-construcao-do-indice-bowtie)
+3. [**Alinhamento com Bowtie**](#3-alinhamento-com-bowtie)
+4. [**Manipulação e Limpeza com Samtools**](#4-manipulacao-e-limpeza-com-samtools)
+5. [**Montagem da Tabela de Alinhamento**](#5-montagem-da-tabela-de-alinhamento)
 
 A principal diferença entre o Bowtie (aula de hoje) e o BLAST (aula passada) reside na otimização para tipos específicos de tarefas e no formato de saída gerado. O Bowtie oferece vantagens significativas ao trabalhar com bibliotecas de pequenas sequências, tanto em termos de velocidade quanto de compatibilidade com ferramentas e formatos padrão na bioinformática, como o formato SAM. Já o BLAST é mais adequado para análises de similaridade gerais e não é otimizado para o processamento em massa de leituras curtas, sendo mais apropriado para analises comparativas do que quantitativas.
 
