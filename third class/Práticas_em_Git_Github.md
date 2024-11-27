@@ -56,7 +56,7 @@ git clone https://github.com/{seu_usuario}/Praticas_Alinhamento_Sequencia
 ### Usar o token na URL remota
 
 ```bash
-git remote set-url origin https://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@github.com/usuario/Praticas_Alinhamento_Sequencia
+git remote set-url origin https://<seu_token>@github.com/usuario/Praticas_Alinhamento_Sequencia
 ```
 
 ### Realizando alterações no Git
