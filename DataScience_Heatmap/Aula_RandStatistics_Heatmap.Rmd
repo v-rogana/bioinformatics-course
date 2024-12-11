@@ -1,0 +1,211 @@
+---
+title: "Template para Visualização de Dados em Bioinformática"
+author: "Seu Nome"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+# Configurações iniciais do Rmarkdown
+knitr::opts_chunk$set(
+  echo = TRUE,        # Mostrar o código
+  warning = FALSE,    # Não mostrar warnings
+  message = FALSE,    # Não mostrar mensagens
+  fig.align = "center"# Centralizar figuras
+)
+```
+
+# Introdução
+
+Este documento serve como um template e guia para:
+
+- Como carregar e unir dados de contagem e metadados (informações sobre as bibliotecas e cepas).
+- Como realizar normalizações (por exemplo, RPM - Reads Per Million).
+- Como transformar dados em matriz para visualização.
+- Como gerar um Heatmap de alta qualidade, entendendo cada etapa do processo e as melhores práticas em visualização.
+- Como realizar um teste estatistico ANOVA.
+
+É esperado que, ao final, voce altere esse template conforme suas necessidades, seguindo boas práticas de reprodutibilidade, clareza e padronização :)
+
+É aconselhado que você envie posteriormente isso para o github da disciplina que será avaliado.
+
+# Carregando Pacotes
+
+```{r packages}
+# Lista de pacotes necessários
+required_packages <- c("dplyr", "reshape2", "ComplexHeatmap", "viridis")
+
+# Função para instalar pacotes ausentes
+install_if_missing <- function(pkg) {
+  if (!requireNamespace(pkg, quietly = TRUE)) {
+    install.packages(pkg)
+  }
+}
+
+# Instalar pacotes ausentes
+invisible(lapply(required_packages, install_if_missing))
+
+# Carregar os pacotes
+library(dplyr)
+library(reshape2)
+library(ComplexHeatmap)
+library(viridis)
+
+```
+
+# Carregando os Dados
+
+Este passo é crítico: certifique-se de que seus arquivos CSV estejam corretamente formatados e no diretório especificado. Ajuste os caminhos conforme necessário.
+
+- `counts_bowtie_av0.csv`: Contagens por biblioteca e cepa (mapeadas com bowtie).
+- `metadados_wolb.csv`: Informações das bibliotecas, incluindo tipo de tratamento e tamanho da biblioteca.
+- `cepas_de_wolbachia.csv`: Informações sobre cada cepa de Wolbachia, incluindo um identificador único.
+
+```{r load-data}
+counts_bowtie_av0 <- read.csv("C:\\Users\\victo\\Downloads\\counts_bowtie_av0.csv")
+metadados_wolb    <- read.csv("C:\\Users\\victo\\Downloads\\metadados_wolb.csv")
+wolbs             <- read.csv("C:\\Users\\victo\\Downloads\\cepas_de_wolbachia.csv")
+```
+
+**Boas Práticas:**
+- Sempre verifique se os dados foram carregados corretamente usando comandos como `head()` ou `str()`.
+- Mantenha nomes de arquivos e colunas padronizados e bem descritos.
+
+# Unindo Tabelas e Preparando Dados
+
+Nesta etapa, vamos realizar um `inner_join` entre `counts_bowtie_av0` e `metadados_wolb`. Isso permite incorporar informações adicionais (como o tipo de tratamento e o tamanho da biblioteca) diretamente ao dataset de contagens.
+
+```{r join-data}
+counts_av0 <- inner_join(counts_bowtie_av0, metadados_wolb, by = "library")
+head(counts_av0)
+```
+
+Verifique se a junção foi bem-sucedida: agora você deve ter colunas referentes à biblioteca, contagens e metadados em um único dataframe.
+
+# Normalização das Contagens em RPM
+
+Para comparar diferentes bibliotecas é fundamental normalizar as contagens. Uma abordagem simples é o RPM (Reads Per Million), que ajusta as contagens pelo tamanho da biblioteca.
+
+**Fórmula:**
+\[
+\text{RPM} = \frac{\text{read_counts}}{\text{lib_size}} \times 10^6
+\]
+
+Isso ajuda a equalizar as bibliotecas, tornando comparações mais justas.
+
+```{r calc-rpm}
+counts_av0 <- counts_av0 %>%
+  mutate(RPM = (read_counts / lib_size) * 1e6)
+```
+
+Verifique com `head(counts_av0)` para assegurar que a nova coluna `RPM` foi adicionada corretamente.
+
+# Ajustando o Identificador da Cepa
+
+Os identificadores de cepa em `counts_av0` contêm o prefixo `"NZ_"` que não existe no dataset de Wolbachia (`wolbs`). Precisamos removê-lo para realizar um novo `inner_join` e incorporar informações da cepa (como títulos mais descritivos).
+
+```{r fix-strains}
+counts_av0$corrected <- sub("NZ_", "", counts_av0$cepa)
+counts_av0 <- inner_join(counts_av0, wolbs, by = c("corrected"="AccessionVersion"))
+```
+
+Após esse passo, `counts_av0` deve conter informações detalhadas das cepas, permitindo análises e visualizações mais ricas.
+
+# Transformando Dados em Matriz
+
+Para o Heatmap, geralmente trabalhamos com matrizes (linhas representando amostras, colunas representando features — neste caso, cepas). Usaremos `dcast()` para "pivotar" os dados e construir essa matriz.
+
+- `library`: Cada linha representará uma biblioteca.
+- `tratamento_tetraciclina`: Informações de tratamento serão concatenadas ao nome da linha.
+- `corrected + Title_reduced`: Cada combinação dessas colunas representará uma coluna na matriz final, mostrando o valor de RPM para cada biblioteca.
+
+```{r matrix-reshape}
+d_counts_av0 <- dcast(counts_av0, library + tratamento_tetraciclina ~ corrected + Title_reduced, value.var = "RPM")
+
+# Converter em matriz numérica, removendo as colunas de texto
+d_counts_av0_matrix <- as.matrix(d_counts_av0[, c(-1, -2)])
+
+# Ajustar nomes de linha para incorporar informação de tratamento
+row.names(d_counts_av0_matrix) <- paste0(d_counts_av0[, 1], "_", d_counts_av0[, 2])
+```
+
+Verifique agora a estrutura da sua matriz: `dim(d_counts_av0_matrix)` deve mostrar o número de bibliotecas (linhas) e o número de cepas/features (colunas).
+
+# Visualização: Heatmap
+
+O Heatmap é uma ferramenta poderosa para visualizar padrões em dados. A biblioteca `ComplexHeatmap` permite personalizar praticamente todos os aspectos do gráfico. Além disso, usamos a paleta `viridis` porque é perceptualmente uniforme e amigável para leitores daltônicos.
+
+**Boas Práticas para Visualização:**
+- Títulos e legendas claras.
+- Ajuste de tamanhos de fonte para legibilidade.
+- Uso de cores apropriadas, evitando esquemas que dificultem a distinção entre valores.
+
+```{r heatmap-plot, fig.width=10, fig.height=8}
+Heatmap(d_counts_av0_matrix,
+        name = "RPM",                                 # Nome da escala
+        row_title = "Bibliotecas de Pequenos RNAs",    # Título para linhas
+        row_title_gp = gpar(fontsize = 14, fontface = "bold"),
+        row_dend_side = "left",
+        row_names_side = "left",
+        row_names_gp = gpar(fontsize = 10),
+        column_title = "Cepas de Wolbachia",           # Título para colunas
+        column_title_gp = gpar(fontsize = 10, fontface = "bold"),
+        column_names_gp = gpar(fontsize = 6),
+        col = viridis(100)                             # Paleta de cores
+)
+```
+
+Análise Estatística: Teste ANOVA
+Aqui está o trecho que você pode adicionar ao final do seu Rmarkdown para incluir a análise estatística com o teste ANOVA:
+
+---
+
+### Análise Estatística: Teste ANOVA
+
+```{r anova-analysis}
+# Converter a variável para fator, se ainda não for
+counts_av0$tratamento_tetraciclina <- as.factor(counts_av0$tratamento_tetraciclina)
+
+# Realizar o teste ANOVA
+anova_result <- aov(RPM ~ tratamento_tetraciclina, data = counts_av0)
+
+# Resumo do resultado ANOVA
+anova_summary <- summary(anova_result)
+anova_summary
+```
+
+---
+
+### Interpretação dos Resultados
+
+#### Hipóteses
+- **\(H_0\) (Hipótese Nula)**: Não há diferença significativa nos valores médios de RPM entre os grupos (tratados e não tratados com tetraciclina).
+- **\(H_1\) (Hipótese Alternativa)**: Existe uma diferença significativa nos valores médios de RPM entre os grupos.
+
+#### Resultados Obtidos
+- **Graus de liberdade (`Df`)**:
+  - \(Df_{\text{tratamento}}\): \(1\) (número de grupos - 1).
+  - \(Df_{\text{resíduos}}\): \(1204\) (total de observações - número de grupos).
+
+- **Soma dos Quadrados (`Sum Sq`)**:
+  - \(1.033 \times 10^{11}\): Variabilidade explicada pelo tratamento.
+  - \(1.356 \times 10^{12}\): Variabilidade residual (não explicada).
+
+- **Estatística F**:
+  - \(F = 91.68\): Relação entre a variabilidade explicada pelos grupos e a variabilidade residual.
+
+- **\(p\)-value**:
+  - \(p < 2 \times 10^{-16}\): Extremamente pequeno, indicando uma diferença altamente significativa entre os grupos.
+
+#### Conclusão
+- Como \(p < 0.001\), rejeitamos \(H_0\) e concluímos que o tratamento com tetraciclina influencia significativamente os valores médios de RPM.
+- Essa diferença observada entre os grupos tratados e não tratados não pode ser atribuída ao acaso.
+
+---
+
+# Considerações Finais
+
+- Use a documentação do complexheatmap para melhorar a visualização de dados! O complexheatmap é o estado da arte para plotar heatmaps, varios papers de bioinfo usam e aconselho a usarem para seus proprios projetos.
+https://jokergoo.github.io/ComplexHeatmap-reference/book/a-single-heatmap.html
+- De uma olhada no pacote de cores do Viridis, ele também é o estado da arte para paletas de cores (eu sou um apaixonado e acho super fofinho).
+https://www.youtube.com/watch?v=xAoljeRJ3lU
