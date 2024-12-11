@@ -62,9 +62,9 @@ Este passo é crítico: certifique-se de que seus arquivos CSV estejam corretame
 - `cepas_de_wolbachia.csv`: Informações sobre cada cepa de Wolbachia, incluindo um identificador único.
 
 ```{r load-data}
-counts_bowtie_av0 <- read.csv("C:\\Users\\victo\\Downloads\\Aula_complexheatmap\\counts_bowtie_av0.csv")
-metadados_wolb    <- read.csv("C:\\Users\\victo\\Downloads\\Aula_complexheatmap\\metadados_wolb.csv")
-wolbs             <- read.csv("C:\\Users\\victo\\Downloads\\Aula_complexheatmap\\cepas_de_wolbachia.csv")
+counts_bowtie_av0 <- read.csv("/home/UFMG.BR/victorabdallah/Downloads/counts_bowtie_av0.csv")
+metadados_wolb    <- read.csv("/home/UFMG.BR/victorabdallah/Downloads/metadados_wolb.csv")
+wolbs             <- read.csv("/home/UFMG.BR/victorabdallah/Downloads/cepas_de_wolbachia.csv")
 ```
 
 **Boas Práticas:**
